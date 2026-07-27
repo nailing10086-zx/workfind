@@ -1,43 +1,17 @@
-# workfind — 央国企招聘查询助手 | State-Owned Enterprise Recruitment Finder
+# WorkFind
 
-> 查招聘 · 评估难度 · 晋升攻略 · 一键掌握全国央国企招聘动态
+求职辅助与岗位匹配分析技能。
 
-## 这是什么
+## 致谢
 
-`workfind` 是一个 Reasonix skill，用于查询中国央企、省属国企、市属国企的招聘信息。内置 1550+ 家真实验证的企业数据库，覆盖 47 个城市。
+感谢 Reasonix 生态提供的技能和 MCP 支持：
 
-## 功能
+**技能**：`deep-research` · `forkprobe` · `humanizer-zh` · `remove-ai-flavor` · `deslop` · `avoid-ai-writing` · `reasonix-guide` · `install-capability` · `review` · `security-review` · `explore` · `research` · `init` · `push-skills`
 
-- 🔍 **招聘查询**：搜索任意央国企的最新校园招聘/社会招聘信息
-- 📊 **难度评估**：根据你的背景评估进入该企业的概率
-- 📈 **晋升分析**：薪资范围、晋升速度、转政府通道分析
-- 💡 **求职攻略**：国企晋升路径、关系运作、从国企转政府的知识库
+**MCP**：`firecrawl-mcp`（岗位搜索/企业信息抓取）· `luma-mcp`（图像理解）
 
-## 快速开始
+感谢开源生态：Node.js · Git。
 
-### 在 Reasonix 中使用
-
-安装 firecrawl MCP 后：
-
-```
-/workfind 全部 四川      ← 查四川省全部国企招聘
-/workfind 中国电信       ← 查某家企业的招聘
-/攻略                     ← 国企求职攻略
-/workfind 全部 深圳       ← 查深圳市属国企
-```
-
-### 独立使用（无需 Reasonix）
-
-```
-node 查国企.js 四川       ← 查看四川省国企清单
-node 查国企.js 广东 投资   ← 按关键词筛选
-node 查国企.js --list     ← 查看所有省份
-```
-
-## 数据来源
-
-各市国资委官网 / guozi.org / 本地宝招聘 / 应届生求职网
-
-## 许可
+## License
 
 MIT
