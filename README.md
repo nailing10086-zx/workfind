@@ -131,6 +131,17 @@ node 查国企.js --list          # 查看所有省份
 - Becker (1964), *Human Capital*, University of Chicago Press —— 经历/人力资本
 - Di Stasio & Gërxhani (2015), *Employers' social contacts and their hiring behavior in a factorial survey*, Social Science Research（PMID:25769854）—— 推荐效应
 
+**近年实证（2020s，数值锚点优先）**
+- Kline, Rose & Walters (2022), 简历审计基准研究, American Economic Review —— 申请→回调基线（近年）
+- *Can LLMs Hire Fairly? Racial Bias in Resume Screening*（arxiv:2606.28978）—— AI 招聘时代简历筛选审计
+- *Hiring Discrimination and the Task Content of Jobs*（arxiv:2604.01933，36,880 申请大样本审计）—— 管理岗回调差 28-43%
+
+**中国场景（2025/2026 校招行业数据）**
+- 《2026 校园招聘白皮书》：2025 届硕士平均起薪 **13749 元/月**；73.5% 企业用 AI 简历筛选缩短初筛；AI 辅助面试 33.1%
+- 北森《2026 校招报告》：95% 校招生使用 AI 求职，简历同质化严重
+- 《2025 春季校园招聘白皮书》：72.4% 学生参与 AI 面试（较 2024 +20.2%）；77% 企业应用 AI 工具（简历筛选 52.6%）
+- 教育部就业调研：面试环节紧张 49.95%、表达欠缺 49.46% 为求职失败主因
+
 **中国权威（中文顶刊）**
 - 边燕杰 (1997), *Bringing Strong Ties Back In: Indirect Ties, Network Bridges, and Job Searches in China*, American Sociological Review 62(3) —— 强关系求职（中国场景）
 - 边燕杰、丘海雄 (2000), *企业的社会资本及其功效*, 《中国社会科学》—— 关系/社会资本
