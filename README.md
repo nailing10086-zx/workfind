@@ -130,7 +130,13 @@ node 查国企.js --list          # 查看所有省份
 - Schmidt & Hunter (1998), *The Validity and Utility of Selection Methods in Personnel Psychology*, Psychological Bulletin 124(2) —— 选拔测试效度
 - Becker (1964), *Human Capital*, University of Chicago Press —— 经历/人力资本
 - Di Stasio & Gërxhani (2015), *Employers' social contacts and their hiring behavior in a factorial survey*, Social Science Research（PMID:25769854）—— 推荐效应
-- 中国城市求职强关系研究（PMID:23017793）—— 关系/推荐（中国场景）
+
+**中国权威（中文顶刊）**
+- 边燕杰 (1997), *Bringing Strong Ties Back In: Indirect Ties, Network Bridges, and Job Searches in China*, American Sociological Review 62(3) —— 强关系求职（中国场景）
+- 边燕杰、丘海雄 (2000), *企业的社会资本及其功效*, 《中国社会科学》—— 关系/社会资本
+- 边燕杰 (2004), *城市居民社会资本的来源及作用：网络观点与调查发现*, 《中国社会科学》—— 关系/社会资本
+- 《校园招聘有效性：影响因素及其负面影响》(2010) —— 中国校招实证
+- 教育部就业调研（面试环节：紧张 49.95%、表达欠缺 49.46% 为求职失败主因）—— 面试环节数据
 
 **跨场景结构参考（医学匹配，仅借漏斗方向）**
 - *Preference Signaling Pilot in the Urology Match* (2022), Urology（DOI:10.1016/j.urology.2022.08.034）
