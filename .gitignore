@@ -23,6 +23,9 @@ index.html
 我的skill仓库地址.txt
 下载我的skill.bat
 
+# 维护者私有配置（webhook/secret 等，绝不入仓库）
+.reasonix/skills/workfind/维护者配置.json
+
 # Reasonix 桌面元数据（本机状态，无需共享）
 .reasonix/desktop-topic-*.json
 .reasonix/skills/resume-craft/
