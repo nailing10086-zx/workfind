@@ -22,6 +22,38 @@
 └── 简历/               ← 放你自己的简历（已被 .gitignore 排除，不会上传）
 ```
 
+## 安装（三选一，先装环境再使用）
+
+### 方式一：Reasonix（推荐，功能完整）
+1. 安装 [Reasonix](https://reasonix.ai)（桌面版/CLI）
+2. 安装本 skill：
+   - 命令安装：在 Reasonix 里运行 `/install-capability` 指向本仓库 `gitee.com/zxasoul/workfind`
+   - 或手动：clone 仓库，把 `.reasonix/skills/workfind/` 整个目录复制到你的项目 `.reasonix/skills/` 下
+3. 安装 `firecrawl` MCP（联网搜索必需）
+4. 简历放进 `简历/` 目录 → 使用 `/workfind`
+
+### 方式二：Claude Code / Cursor 等通用 Agent
+1. 把 `.reasonix/skills/workfind/` 整个目录（SKILL.md + references/）放到对应位置：
+   - Claude Code：`.claude/skills/workfind/`
+   - Cursor：`.cursor/skills/workfind/`
+2. 配置 `firecrawl` MCP（联网搜索）
+3. 用法相同，按你的工具方式触发
+
+### 方式三：不装 Agent，只用本地清单（Node.js）
+- 有 Node.js 就能查全国国企清单（无需 AI、无需 Reasonix）：
+  ```
+  node 查国企.js 广东           # 查看某省国企清单
+  node 查国企.js 广东 电信       # 按关键词筛选
+  node 查国企.js --list          # 查看所有省份
+  ```
+- AI 分析（录用参考 / 简历诊断 / 秋招日历 / 概率模型）需要方式一或二
+
+### 依赖总览
+| 依赖 | 用途 | 必需 |
+|------|------|:---:|
+| firecrawl MCP | 联网搜索岗位/公告 | ✅（AI 分析时）|
+| Node.js | 本地国企清单查询 | 可选 |
+
 ## 快速开始（Reasonix）
 
 1. 安装 `firecrawl` MCP（联网搜索必需）
