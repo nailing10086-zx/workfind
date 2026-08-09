@@ -1,0 +1,36 @@
+# 依赖与构建产物
+node_modules/
+package.json
+package-lock.json
+
+# 简历等文档格式
+*.docx
+*.pdf
+*.jpg
+*.png
+*.jsonl
+*.recovery.json
+
+# 私人简历（含候选人个人信息，禁止推送公开仓库）
+简历/
+
+# 简历生成工具（不属于 workfind skill 仓库）
+generate_resume_final.js
+index.html
+
+# ⚠️ 私人文件：禁止推送到公开仓库
+我的Reasonix配置清单.txt
+我的skill仓库地址.txt
+下载我的skill.bat
+
+# Reasonix 桌面元数据（本机状态，无需共享）
+.reasonix/desktop-topic-*.json
+.reasonix/skills/resume-craft/
+.reasonix/skills/soe-recruit/
+reasonix.toml
+
+# 跑批缓存与本地预筛产物（含具体候选人打标，不进仓库）
+招聘结果/
+
+# 冗余导出文件（各省国企/ 下已有同名数据）
+江苏_国企名录.md

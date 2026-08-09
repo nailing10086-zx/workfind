@@ -1,0 +1,60 @@
+# 公司校招数据源登记表（company-sources.yaml）
+# 用途：查某公司前先查此表，命中则直接使用登记的入口，不再现搜官网（省配额）
+# 优先级：用户本次提供 URL > 本表 > 各省国企/本地数据库 > 网络搜索 > 不编造
+# 维护：每次跑批验证到新入口/新公告，请追加或更新对应条目（保留验证日期）
+# 格式：公司名: campus(校招入口) / 公众号 / 备注(开放状态、岗位方向、验证日期)
+
+sources:
+  天翼云:
+    campus: https://ctyun.cn/hr/
+    公众号: 天翼云招聘
+    备注: 2027届2026-08-08全面启动（北京日报已报）；综合管理/管培生/产品/信息安全；成都实体（验证2026-08-09）
+  中国电信:
+    campus: campus.51job.com/chinatelecom
+    公众号: 中国电信校园招聘
+    备注: 2027届正式批预计8月底启动（2026届为8.28）；招聘专业含公共管理类
+  中国移动:
+    campus: https://job.10086.cn
+    公众号: 中国移动招聘
+    备注: 2027届预计9月上旬启动；招聘专业含公共管理类；全省21市州
+  中国联通:
+    campus: https://zglt.iguopin.com
+    公众号: 中国联通招聘
+    备注: 2027届预计9月初启动；"新苗计划"管培生
+  中国铁塔:
+    campus: https://zhaopin.chinatowercom.cn
+    公众号: 中国铁塔
+    备注: 2027届预计9月中旬开放（网申9月中-11月上旬，每人仅1岗）；综合管理/财务/审计/数据分析/运维岗；zhaopin.chinatowercom.cn 为招聘子站（2026-08-09测试验证），www.china-tower.com 仅集团官网
+  东方电气:
+    campus: https://www.dongfang.com
+    备注: 成都+德阳（东方电机/东方汽轮机）；2027届预计9月下旬；审计/信息化/党建岗
+  字节跳动:
+    campus: https://jobs.bytedance.com/campus
+    备注: 2027届2026-08-03启动，截止2026-10-03；成都数据分析/运营非技术岗可投
+  京东:
+    campus: https://campus.jd.com
+    备注: JDS新星计划2026-08-03启动；成都商家运营/产品运营
+  阿里巴巴:
+    campus: https://talent.alibaba.com
+    备注: 2026-08-05启动；成都职能/数据岗空间小
+  华为:
+    campus: https://career.huawei.com
+    备注: 2027届正式批预计8月中下旬；成都研究所数据分析/信息安全岗
+  四川省数据集团:
+    campus: https://www.sc-datagroup.com
+    公众号: 四川数据集团
+    备注: 成都简阳；批次招聘为主（1+4+N数据安全/治理）；官网人才招聘栏目
+  中国邮政:
+    campus: https://zhaopin.chinapost.com.cn
+    备注: 2027届预计9-10月；四川全省
+  国家电网:
+    campus: https://zhaopin.sgcc.com.cn
+    备注: 第一批次每年11月发布；信息技术类可报但竞争极激烈
+  四川长虹:
+    campus: https://changhong.zhiye.com
+    备注: 绵阳；2027届预计9月中旬；财务/审计/数据/党建/IT岗
+  五粮液:
+    campus: https://www.wuliangye.com.cn
+    备注: 宜宾；2027届预计9-10月；审计/财务/信息/党建岗
+  九洲集团:
+    备注: 绵阳军工集团（军品：九洲电器/迪飞；民品：九洲科技；军民两用：九洲软件）；2027届校招关注官网招聘专栏
