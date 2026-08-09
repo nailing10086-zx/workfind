@@ -119,6 +119,31 @@ node 查国企.js --list          # 查看所有省份
 - Reasonix + firecrawl MCP（联网搜索）
 - Node.js（本地清单查询，可选）
 
+## 学术引用（录用参考模型的论文依据）
+
+录用参考模型中的**论文基线、简历修正因子与参数取值**基于以下学术研究，特此致谢。各参数已按保守原则整合与下调，非直接复刻原文数值。
+
+**同行评审（顶刊/经典）**
+- Bertrand & Mullainathan (2004), *Are Emily and Greg More Employable Than Lakisha and Jamal? A Field Experiment on Labor Market Discrimination*, American Economic Review 94(4) —— 简历回调率基线
+- Pager, Western & Bonikowski (2009), *Discrimination in a Low-Wage Labor Market: A Field Experiment*, American Sociological Review 74(5) —— 简历回调率基线
+- Spence (1973), *Job Market Signaling*, Quarterly Journal of Economics 87(3) —— 学历信号
+- Schmidt & Hunter (1998), *The Validity and Utility of Selection Methods in Personnel Psychology*, Psychological Bulletin 124(2) —— 选拔测试效度
+- Becker (1964), *Human Capital*, University of Chicago Press —— 经历/人力资本
+- Di Stasio & Gërxhani (2015), *Employers' social contacts and their hiring behavior in a factorial survey*, Social Science Research（PMID:25769854）—— 推荐效应
+- 中国城市求职强关系研究（PMID:23017793）—— 关系/推荐（中国场景）
+
+**跨场景结构参考（医学匹配，仅借漏斗方向）**
+- *Preference Signaling Pilot in the Urology Match* (2022), Urology（DOI:10.1016/j.urology.2022.08.034）
+- *Insights from the San Francisco Match rank list data* (2014), Annals of Plastic Surgery（DOI:10.1097/SAP.0000000000000185）
+
+**预印本（arxiv，未经同行评审，仅作方向参考）**
+- *AI Skills Improve Job Prospects*（arxiv:2601.13286）
+- *The Role of Referrals in Labor Markets*（arxiv:2012.15753）
+- *Hiring Discrimination and the Task Content of Jobs*（arxiv:2604.01933）
+- *The Value of Non-Traditional Credentials*（arxiv:2405.00247）
+
+> 完整模型与参数说明见 `references/job-advice.md`。如引用有误，欢迎指正。
+
 ## 致谢
 
 感谢 Reasonix 生态提供的技能和 MCP 支持：
