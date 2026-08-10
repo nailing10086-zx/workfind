@@ -2,7 +2,7 @@
 name: workfind
 description: 查询央国企招聘信息：官网、校招时间（近3年历史推算）、岗位方向、匹配度打分、反诈骗提示。支持分组跑批、落盘缓存、公司数据源登记、可选候选人简历（通用）。
 runAs: subagent
-allowed-tools: [bash, write_file, mcp__firecrawl-mcp__firecrawl_search, mcp__firecrawl-mcp__firecrawl_scrape, mcp__firecrawl-mcp__firecrawl_parse, mcp__firecrawl-mcp__firecrawl_search_feedback, web_fetch]
+allowed-tools: [bash, write_file, mcp__firecrawl-mcp__firecrawl_search, mcp__firecrawl-mcp__firecrawl_scrape, mcp__firecrawl-mcp__firecrawl_parse, mcp__firecrawl-mcp__firecrawl_search_feedback, web_fetch, mcp__chrome-devtools-mcp__navigate_page, mcp__chrome-devtools-mcp__take_snapshot, mcp__chrome-devtools-mcp__click, mcp__chrome-devtools-mcp__fill_form, mcp__chrome-devtools-mcp__list_pages, mcp__playwright__browser_navigate, mcp__playwright__browser_snapshot, mcp__playwright__browser_click, mcp__playwright__browser_fill_form]
 ---
 
 # workfind — 央国企招聘信息查询
@@ -177,6 +177,24 @@ grep -i "[关键词]" $PWD/各省国企/[省名].md
 - **`只查已开放: true`**：跳过所有未开放单位的搜索，只输出预计时间行。
 - 单次跑批总搜索次数控制在 30 次以内；超出后只深挖匹配度高的单位。
 
+## 第三步·五：官方平台浏览器实测（防误报核心，必须）
+
+**判定"已开放"的唯一可靠依据 = 打开官方网申系统，数出用户地区的岗位数**。新闻/公告只能证明集团启动，不能证明用户地区有岗。
+
+```bash
+cat $PWD/.reasonix/skills/workfind/references/platform-check.md 2>/dev/null
+```
+
+操作（每家 ≤ 3 次导航，控制成本）：
+1. 用 Chrome MCP（`mcp__chrome-devtools-mcp__*`）或 playwright（`mcp__playwright__*`）打开官方校招入口（优先 company-sources.yaml 登记入口）
+2. 定位"招聘单位/省公司"列表 → 找用户地区单位；用地区筛选点用户省份
+3. 记录实测结果，据此定状态标记：
+   - 单位列表有本地区单位 **且** 岗位数 > 0 → `🟢 已开放（本地区有岗）`
+   - 集团启动但本地区单位未上线 / 筛选无岗位 → `🟡 集团已启动（本地区岗位未上线）`
+   - 主入口还是上一届（如暑期实习）或岗位区空（"没有找到相应的数据"）→ `🟡 未开放`
+4. **Chrome MCP 前置**：若报"Could not connect to Chrome"，按 platform-check.md 用 bash 拉起 9222 调试端口 Chrome；playwright 无需前置
+5. 未开放单位不实测（只给预计时间）；已开放单位实测后把入口/日期追加到 company-sources.yaml
+
 ### 网站链接处理
 - 所有网站链接标注"需审查"
 - 不确定正确的不写
@@ -191,10 +209,11 @@ grep -i "[关键词]" $PWD/各省国企/[省名].md
 - `🟡 待开放`：集团也未启动
 - `🔴 不符合筛选`：硬约束冲突/学历不达标/不对口
 
-**地区岗位核实（防误报，关键）**：发现集团"校招全面启动"公告时，**必须**到官方招聘平台按用户所选地区/单位核实实际岗位数：
+**地区岗位核实（防误报，关键）**：发现集团"校招全面启动"公告时，**必须**到官方招聘平台按用户所选地区/单位核实实际岗位数（用浏览器实测官方网申系统，见第三步·五）：
 1. 岗位数 > 0 → 才标"🟢 已开放可投"
 2. 岗位数 = 0 → 标"🟡 集团已启动（本地区岗位未上线）"，并给出"盯平台等放岗"指引
 3. **禁止把集团公告直接当成用户地区有岗**（集团启动 ≠ 用户办公地点有岗位）
+4. 判"已开放"**必须实测官方平台岗位数**，不能只凭新闻/公告/第三方转载
 
 ```
 ### 🟢 已开放可投
