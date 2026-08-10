@@ -192,7 +192,7 @@ cat $PWD/.reasonix/skills/workfind/references/platform-check.md 2>/dev/null
    - 单位列表有本地区单位 **且** 岗位数 > 0 → `🟢 已开放（本地区有岗）`
    - 集团启动但本地区单位未上线 / 筛选无岗位 → `🟡 集团已启动（本地区岗位未上线）`
    - 主入口还是上一届（如暑期实习）或岗位区空（"没有找到相应的数据"）→ `🟡 未开放`
-4. **Chrome MCP 前置**：若报"Could not connect to Chrome"，按 platform-check.md 用 bash 拉起 9222 调试端口 Chrome；playwright 无需前置
+4. **Chrome MCP 前置**：若报"Could not connect to Chrome"，按 platform-check.md 用 bash 拉起 9222 调试端口 Chrome（`"/c/Users/22174/AppData/Local/Google/Chrome/Application/chrome.exe" --remote-debugging-port=9222 --user-data-dir="C:/Users/22174/.chrome-devtools-profile" &`，curl 验证后再继续）；**建议优先用 Chrome MCP**（登录态可复用），playwright 无需前置
 5. 未开放单位不实测（只给预计时间）；已开放单位实测后把入口/日期追加到 company-sources.yaml
 
 ### 网站链接处理
@@ -238,6 +238,11 @@ cat $PWD/.reasonix/skills/workfind/references/platform-check.md 2>/dev/null
 - **总部地点**：<公司注册/总部所在地，仅作背景>
 - **办公地点（岗位工作地）**：<实际上班地点，可多个；这是筛选/投递的唯一依据>
 - **官网链接**（需审查）：
+
+### 如何投递（建议用 Chrome MCP 操作）
+- 官方网申入口：<URL，实测平台为据>
+- **建议用户在本机用 Chrome MCP（谷歌浏览器调试模式，CDP 9222）打开入口投递/核实**——登录态可复用，填表投递直接在真实页面完成（Chrome 拉起方法见 references/platform-check.md）
+- 投递前自查：官方唯一渠道（反诈骗）、不交任何费用、岗位与个人筛选条件对齐
 
 ### 招聘渠道
 - **招聘官网**（需审查）：

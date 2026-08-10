@@ -16,18 +16,44 @@
 
 ## 浏览器前置（Chrome MCP 依赖 9222 调试端口）
 
+### Chrome MCP（谷歌浏览器）——优先使用，可复用登录态
+
+Chrome MCP 连到本机调试模式运行的 Chrome（CDP 9222），**能看到真实登录态、能点表单、能数岗位**。**建议优先用 Chrome MCP 而非 playwright**：登录态可复用（用户登录一次，投递/核实都能继续）。
+
+**① 启动 Chrome（调试模式，独立 profile）**：
+
 ```bash
-# 检查 Chrome 是否以调试模式运行
+# 检查是否已在运行（返回 JSON 含 Browser 字段 = 可用）
 curl -s -m 5 http://127.0.0.1:9222/json/version
-# 不通则拉起（独立 profile，不影响日常 Chrome）
+
+# 未运行则拉起（独立 profile，不影响日常 Chrome）
 "/c/Users/22174/AppData/Local/Google/Chrome/Application/chrome.exe" \
   --remote-debugging-port=9222 \
   --user-data-dir="C:/Users/22174/.chrome-devtools-profile" \
   --no-first-run --no-default-browser-check about:blank &
-sleep 4   # 等端口就绪
+sleep 4   # 等端口就绪，再 curl 验证一次
 ```
 
-- playwright MCP 无需前置（自动拉起）
+**② 常用工具与操作路径**：
+
+| 操作 | Chrome MCP 工具 | 说明 |
+|:----|:----|:----|
+| 打开页面 | `navigate_page` | 传 URL；返回当前页面标题 |
+| 看页面结构 | `take_snapshot` | 返回可交互元素树（含 uid），是点击/填写的依据 |
+| 点击 | `click` | 传 snapshot 里的 uid；大页面用 `includeSnapshot=true` 拿新树 |
+| 填写表单 | `fill_form` | 一次填多个字段，优先用（比逐个 fill 快） |
+| 页面列表 | `list_pages` | 确认当前有几个 tab/当前页 |
+
+**③ 常见故障与处理**：
+
+| 报错 | 原因 | 处理 |
+|:----|:----|:----|
+| `Could not connect to Chrome` | Chrome 没在跑/9222 未监听 | 按①拉起并 curl 验证 |
+| `fetch failed`（curl 却通） | Chrome 刚被关/后台任务结束 | 重启 Chrome（用后台方式保持存活） |
+| 页面 busy/岗位区空 | 页面在加载 或 岗位未上线 | 等 3-5 秒重新 take_snapshot；仍空 = 🟡 未开放 |
+| 登录墙 | 需账号 | 让用户在本机 Chrome 登录一次，会话保持后继续 |
+
+- playwright MCP 无需前置（自动拉起），适合快速抓取；**涉及登录态/表单操作优先用 Chrome MCP**
 - 实测步骤 ≤ 3 次导航/家，控制成本；未开放单位不实测，只给预计时间
 
 ## 运营商平台操作手册（2026-08-10 实测验证）
