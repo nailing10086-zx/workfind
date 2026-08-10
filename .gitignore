@@ -41,3 +41,6 @@ reasonix.toml
 # 浏览器会话与任务缓存（不进仓库）
 .playwright-mcp/
 .reasonix/tasks/
+
+# 本地存档（不推送公开仓库）
+本地存档/
