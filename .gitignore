@@ -37,3 +37,7 @@ reasonix.toml
 
 # 冗余导出文件（各省国企/ 下已有同名数据）
 江苏_国企名录.md
+
+# 浏览器会话与任务缓存（不进仓库）
+.playwright-mcp/
+.reasonix/tasks/

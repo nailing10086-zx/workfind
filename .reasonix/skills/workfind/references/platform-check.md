@@ -24,18 +24,21 @@
 
 Chrome MCP 连到本机调试模式运行的 Chrome（CDP 9222），**能看到真实登录态、能点表单、能数岗位**。**建议优先用 Chrome MCP 而非 playwright**：登录态可复用（用户登录一次，投递/核实都能继续）。
 
-**① 启动 Chrome（调试模式，独立 profile）**：
+**① 启动 Chrome（调试模式，独立 profile，守护方式必须）**：
 
 ```bash
-# 检查是否已在运行（返回 JSON 含 Browser 字段 = 可用）
-curl -s -m 5 http://127.0.0.1:9222/json/version
+# 推荐：一键脚本（nohup+disown 守护，脱离会话存活）
+bash tools/chrome-mcp-start.sh
 
-# 未运行则拉起（独立 profile，不影响日常 Chrome）
+# 手动等价（工具侧）：用 run_in_background + preserve_background_processes 启动下面命令
 "/c/Users/22174/AppData/Local/Google/Chrome/Application/chrome.exe" \
   --remote-debugging-port=9222 \
   --user-data-dir="C:/Users/22174/.chrome-devtools-profile" \
-  --no-first-run --no-default-browser-check about:blank &
-sleep 4   # 等端口就绪，再 curl 验证一次
+  --no-first-run --no-default-browser-check about:blank
+
+# 验证：curl 和 node fetch 都要通（单验 curl 会误判）
+curl -s -m 3 http://127.0.0.1:9222/json/version
+node -e "fetch('http://127.0.0.1:9222/json/version').then(r=>r.json()).then(j=>console.log('node fetch OK:', j.Browser))"
 ```
 
 **② 常用工具与操作路径**：
@@ -52,8 +55,8 @@ sleep 4   # 等端口就绪，再 curl 验证一次
 
 | 报错 | 原因 | 处理 |
 |:----|:----|:----|
-| `Could not connect to Chrome` | Chrome 没在跑/9222 未监听 | 按①拉起并 curl 验证 |
-| `fetch failed`（curl 却通） | Chrome 刚被关/后台任务结束 | 重启 Chrome（用后台方式保持存活） |
+| `Could not connect to Chrome` / `fetch failed` | **根因：调试 Chrome 已死**——普通 bash 拉起 Chrome 会随会话退出被杀（bash 退出即无 9222 监听），MCP 进程独立存活去连时已死。**curl 同刻能通则误导**（只在拉起瞬间同一 bash 内有效） | 用守护方式重启：`bash tools/chrome-mcp-start.sh`（内部 nohup+disown）或工具侧 run_in_background+preserve；重启后 curl **和 node fetch** 双验 |
+| 验证方法 | 单验 curl 不够 | `curl -s -m 3 http://127.0.0.1:9222/json/version` **和** `node -e "fetch('http://127.0.0.1:9222/json/version').then(r=>r.json()).then(j=>console.log(j.Browser))"` **都必须通**；node fetch 通才算 MCP 能用 |
 | 页面 busy/岗位区空 | 页面在加载 或 岗位未上线 | 等 3-5 秒重新 take_snapshot；仍空 = 🟡 未开放 |
 | 登录墙 | 需账号 | 让用户在本机 Chrome 登录一次，会话保持后继续 |
 
