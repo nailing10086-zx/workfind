@@ -1,38 +1,41 @@
-// 实力上限模型测试：验证"投递数量 vs 组合概率"曲线是否饱和
-// 模型：组合概率 = min(1-(1-p̄)^n, C)，C = 1-(1-p_max)^3
+// 概率恒等式测试：只验证计算行为，不提供任何经验参数。
+const assert = require('node:assert/strict');
 
-function combo(pArr) {
-  const n = pArr.length;
-  // 独立假设
-  const indep = 1 - pArr.reduce((acc, p) => acc * (1 - p), 1);
-  // 实力上限
-  const p_max = Math.max(...pArr);
-  const C = 1 - Math.pow(1 - p_max, 3);
-  const capped = Math.min(indep, C);
-  return { n, indep: (indep * 100).toFixed(1) + '%', cap: (C * 100).toFixed(1) + '%', final: (capped * 100).toFixed(1) + '%' };
+function validateProbability(p) {
+  if (!Number.isFinite(p) || p < 0 || p > 1) {
+    throw new RangeError('概率必须位于 [0, 1]');
+  }
 }
 
-// 合成示例：5 个不同质量岗位，不对应任何真实候选人或投递记录
-const sampleApplications = [0.08, 0.07, 0.08, 0.03, 0.06];
-console.log('=== 合成示例：5 个岗位 ===');
-console.log(combo(sampleApplications));
-
-// 模拟投满 8/11/20 家（新增同质量岗）
-function extend(arr, n, p) {
-  const a = arr.slice();
-  for (let i = 0; i < n; i++) a.push(p);
-  return a;
+function anyOfferIndependent(probabilities) {
+  probabilities.forEach(validateProbability);
+  return 1 - probabilities.reduce((product, p) => product * (1 - p), 1);
 }
-console.log('\n=== 投满 8 家（+3 家 5%）===');
-console.log(combo(extend(sampleApplications, 3, 0.05)));
-console.log('\n=== 投满 11 家（+6 家 5%）===');
-console.log(combo(extend(sampleApplications, 6, 0.05)));
-console.log('\n=== 投满 20 家（+15 家 5%）===');
-console.log(combo(extend(sampleApplications, 15, 0.05)));
-console.log('\n=== 极端：同实力投 100 家 ===');
-console.log(combo(extend(sampleApplications, 95, 0.05)));
 
-// 验证"实力弱的人投再多也没用"
-console.log('\n=== 实力弱（全是 1% 岗）投 50 家 ===');
-const weak = new Array(50).fill(0.01);
-console.log(combo(weak));
+// 对共享潜在状态 u 做加权平均：E_u[1 - product(1 - p_i(u))]。
+function anyOfferConditionalScenarios(scenarios) {
+  const weightSum = scenarios.reduce((sum, scenario) => sum + scenario.weight, 0);
+  assert.ok(Math.abs(weightSum - 1) < 1e-12, '场景权重之和必须为 1');
+  return scenarios.reduce((sum, scenario) => {
+    validateProbability(scenario.weight);
+    return sum + scenario.weight * anyOfferIndependent(scenario.probabilities);
+  }, 0);
+}
+
+assert.equal(anyOfferIndependent([]), 0);
+assert.equal(anyOfferIndependent([0]), 0);
+assert.equal(anyOfferIndependent([1]), 1);
+assert.ok(Math.abs(anyOfferIndependent([0.2, 0.3]) - 0.44) < 1e-12);
+assert.throws(() => anyOfferIndependent([1.01]), RangeError);
+
+// 两个岗位的边际概率均为 0.5；共享状态造成正相关，组合概率不等于独立公式。
+const correlated = anyOfferConditionalScenarios([
+  { weight: 0.5, probabilities: [0.9, 0.9] },
+  { weight: 0.5, probabilities: [0.1, 0.1] }
+]);
+const independentFromMarginals = anyOfferIndependent([0.5, 0.5]);
+assert.ok(Math.abs(correlated - 0.59) < 1e-12);
+assert.ok(Math.abs(independentFromMarginals - 0.75) < 1e-12);
+assert.notEqual(correlated, independentFromMarginals);
+
+console.log('probability-model-test: PASS');
