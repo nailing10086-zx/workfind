@@ -31,9 +31,9 @@ Chrome MCP 连到本机调试模式运行的 Chrome（CDP 9222），**能看到�
 bash tools/chrome-mcp-start.sh
 
 # 手动等价（工具侧）：用 run_in_background + preserve_background_processes 启动下面命令
-"/c/Users/22174/AppData/Local/Google/Chrome/Application/chrome.exe" \
+"<Chrome安装路径>/chrome.exe" \
   --remote-debugging-port=9222 \
-  --user-data-dir="C:/Users/22174/.chrome-devtools-profile" \
+  --user-data-dir="<本地调试配置目录>" \
   --no-first-run --no-default-browser-check about:blank
 
 # 验证：curl 和 node fetch 都要通（单验 curl 会误判）
@@ -72,7 +72,7 @@ node -e "fetch('http://127.0.0.1:9222/json/version').then(r=>r.json()).then(j=>c
 2. **不要频繁 kill Chrome**：登录态在 profile 里持久保存，但 Chrome 非正常退出可能写不完整；让后台任务常驻
 3. **登录时勾"记住我/7天免登录"**（若有），并把账号密码交给 Chrome 密码管理器（profile 的 Login Data 会自动保存）
 4. **token 过期无法避免 → 用检查步骤兜底**：实测时若页面跳登录页（URL 含 login/注册页、有"登录/注册"按钮无用户信息），提示用户"请在本机 Chrome 手动登录一次"，登录后该会话内持续有效
-5. **登录成功的标志**：页面右上角出现用户头像/名字（如九洲系统"你好，张洵"）——有则登录态正常，可直接看"我的投递"
+5. **登录成功的标志**：页面右上角出现用户头像/名字——有则登录态正常，可直接看"我的投递"
 
 ## 运营商平台操作手册（2026-08-10 实测验证）
 

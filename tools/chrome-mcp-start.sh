@@ -8,8 +8,9 @@
 # Chrome MCP 就会报 "Could not connect to Chrome ... fetch failed"（实际是 9222 已无监听）。
 # 用 nohup + 重定向 + 延迟 detach，保证独立于调用方 shell 的进程组。
 
-CHROME="/c/Users/22174/AppData/Local/Google/Chrome/Application/chrome.exe"
-PROFILE="C:/Users/22174/.chrome-devtools-profile"
+# 按本机环境修改以下两行：Chrome 可执行文件路径 + 调试 profile 目录（登录态存于此）
+CHROME="<Chrome安装路径>/chrome.exe"
+PROFILE="<本地调试配置目录>"
 PORT=9222
 
 # 1. 检查是否已在运行
